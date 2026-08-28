@@ -1,0 +1,51 @@
+@model Student
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0"><i class="bi bi-person-lines-fill me-2"></i>Student Details</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to List</a>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <div class="row g-3">
+            <div class="col-md-6"><strong>Full Name:</strong> @Model.FullName</div>
+            <div class="col-md-6"><strong>Email:</strong> @Model.Email</div>
+            <div class="col-md-6"><strong>Phone:</strong> @Model.Phone</div>
+            <div class="col-md-6"><strong>Date of Birth:</strong> @Model.DateOfBirth.ToString("dd MMM yyyy")</div>
+            <div class="col-md-6"><strong>Gender:</strong> @Model.Gender</div>
+            <div class="col-md-6"><strong>Address:</strong> @Model.Address</div>
+            <div class="col-md-6"><strong>Joined:</strong> @Model.CreatedDate.ToString("dd MMM yyyy")</div>
+        </div>
+        <div class="mt-4">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="bi bi-pencil"></i> Edit</a>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white fw-semibold"><i class="bi bi-journal-check me-1"></i> Enrolled Courses</div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr><th>Course</th><th>Enrollment Date</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+                @if (!Model.Enrollments.Any())
+                {
+                    <tr><td colspan="3" class="text-center text-muted py-3">Not enrolled in any course yet.</td></tr>
+                }
+                @foreach (var e in Model.Enrollments)
+                {
+                    <tr>
+                        <td>@e.Course?.CourseName</td>
+                        <td>@e.EnrollmentDate.ToString("dd MMM yyyy")</td>
+                        <td><span class="badge bg-@(e.Status == "Active" ? "success" : e.Status == "Completed" ? "primary" : "secondary")">@e.Status</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

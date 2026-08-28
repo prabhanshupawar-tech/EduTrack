@@ -1,0 +1,25 @@
+@model Student
+@{
+    ViewData["Title"] = "Delete Student";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0 text-danger"><i class="bi bi-exclamation-triangle-fill me-2"></i>Delete Student</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to List</a>
+</div>
+
+<div class="card border-0 shadow-sm border-danger">
+    <div class="card-body p-4">
+        <p class="mb-3">Are you sure you want to delete the following student? This action cannot be undone.</p>
+        <dl class="row">
+            <dt class="col-sm-3">Full Name</dt><dd class="col-sm-9">@Model.FullName</dd>
+            <dt class="col-sm-3">Email</dt><dd class="col-sm-9">@Model.Email</dd>
+            <dt class="col-sm-3">Phone</dt><dd class="col-sm-9">@Model.Phone</dd>
+        </dl>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Confirm Delete</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

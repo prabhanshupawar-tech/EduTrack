@@ -1,0 +1,58 @@
+@model EnrollmentFormViewModel
+@{
+    ViewData["Title"] = "Enroll Student";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0"><i class="bi bi-clipboard-plus-fill me-2"></i>Enroll Student</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to List</a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <form asp-action="Create" method="post" novalidate>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Enrollment.StudentId" class="form-label">Student</label>
+                    <select asp-for="Enrollment.StudentId" asp-items="Model.Students" class="form-select">
+                        <option value="">-- Select Student --</option>
+                    </select>
+                    <span asp-validation-for="Enrollment.StudentId" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Enrollment.CourseId" class="form-label">Course</label>
+                    <select asp-for="Enrollment.CourseId" asp-items="Model.Courses" class="form-select">
+                        <option value="">-- Select Course --</option>
+                    </select>
+                    <span asp-validation-for="Enrollment.CourseId" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Enrollment.EnrollmentDate" class="form-label"></label>
+                    <input asp-for="Enrollment.EnrollmentDate" type="date" class="form-control" />
+                    <span asp-validation-for="Enrollment.EnrollmentDate" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Enrollment.Status" class="form-label"></label>
+                    <select asp-for="Enrollment.Status" class="form-select">
+                        @foreach (var status in Model.StatusOptions)
+                        {
+                            <option value="@status">@status</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Enrollment.Status" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle me-1"></i> Enroll Student</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

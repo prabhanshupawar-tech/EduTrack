@@ -1,0 +1,38 @@
+@model dynamic
+@{
+    // Expects ViewData to contain: PageIndex, TotalPages, Action (controller action name),
+    // and route values for search/sort passed through via anchor helper below.
+    int pageIndex = (int)ViewData["PageIndex"]!;
+    int totalPages = (int)ViewData["TotalPages"]!;
+    string action = (string)ViewData["PagerAction"]!;
+    string? currentFilter = ViewData["CurrentFilter"] as string;
+    string? currentSort = ViewData["CurrentSort"] as string;
+}
+@if (totalPages > 1)
+{
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(pageIndex <= 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="@action"
+                   asp-route-pageIndex="@(pageIndex - 1)"
+                   asp-route-searchTerm="@currentFilter"
+                   asp-route-sortOrder="@currentSort">Previous</a>
+            </li>
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == pageIndex ? "active" : "")">
+                    <a class="page-link" asp-action="@action"
+                       asp-route-pageIndex="@i"
+                       asp-route-searchTerm="@currentFilter"
+                       asp-route-sortOrder="@currentSort">@i</a>
+                </li>
+            }
+            <li class="page-item @(pageIndex >= totalPages ? "disabled" : "")">
+                <a class="page-link" asp-action="@action"
+                   asp-route-pageIndex="@(pageIndex + 1)"
+                   asp-route-searchTerm="@currentFilter"
+                   asp-route-sortOrder="@currentSort">Next</a>
+            </li>
+        </ul>
+    </nav>
+}

@@ -1,0 +1,135 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0"><i class="bi bi-speedometer2 me-2"></i>Dashboard</h2>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 dashboard-card bg-primary text-white">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-uppercase mb-1 opacity-75">Total Students</h6>
+                    <h2 class="mb-0 fw-bold">@Model.TotalStudents</h2>
+                </div>
+                <i class="bi bi-people-fill" style="font-size: 2.5rem; opacity: .5;"></i>
+            </div>
+            <a asp-controller="Student" asp-action="Index" class="card-footer text-white text-decoration-none small bg-primary bg-opacity-75">
+                View all students <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 dashboard-card bg-success text-white">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-uppercase mb-1 opacity-75">Total Courses</h6>
+                    <h2 class="mb-0 fw-bold">@Model.TotalCourses</h2>
+                </div>
+                <i class="bi bi-journal-bookmark-fill" style="font-size: 2.5rem; opacity: .5;"></i>
+            </div>
+            <a asp-controller="Course" asp-action="Index" class="card-footer text-white text-decoration-none small bg-success bg-opacity-75">
+                View all courses <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100 dashboard-card bg-info text-white">
+            <div class="card-body d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-uppercase mb-1 opacity-75">Total Enrollments</h6>
+                    <h2 class="mb-0 fw-bold">@Model.TotalEnrollments</h2>
+                </div>
+                <i class="bi bi-clipboard-check-fill" style="font-size: 2.5rem; opacity: .5;"></i>
+            </div>
+            <a asp-controller="Enrollment" asp-action="Index" class="card-footer text-white text-decoration-none small bg-info bg-opacity-75">
+                View all enrollments <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white fw-semibold"><i class="bi bi-person-plus-fill me-1"></i> Latest Students</div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr><th>Name</th><th>Email</th><th>Joined</th></tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.LatestStudents.Any())
+                        {
+                            <tr><td colspan="3" class="text-center text-muted py-3">No students yet.</td></tr>
+                        }
+                        @foreach (var s in Model.LatestStudents)
+                        {
+                            <tr>
+                                <td>@s.FullName</td>
+                                <td>@s.Email</td>
+                                <td>@s.CreatedDate.ToString("dd MMM yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white fw-semibold"><i class="bi bi-journal-plus me-1"></i> Latest Courses</div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr><th>Course</th><th>Instructor</th><th>Fees</th></tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.LatestCourses.Any())
+                        {
+                            <tr><td colspan="3" class="text-center text-muted py-3">No courses yet.</td></tr>
+                        }
+                        @foreach (var c in Model.LatestCourses)
+                        {
+                            <tr>
+                                <td>@c.CourseName</td>
+                                <td>@c.InstructorName</td>
+                                <td>@c.Fees.ToString("C0")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white fw-semibold"><i class="bi bi-trophy-fill me-1"></i> Courses with the Most Students</div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr><th>Course</th><th>Enrolled Students</th></tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.TopCourses.Any())
+                        {
+                            <tr><td colspan="2" class="text-center text-muted py-3">No enrollment data yet.</td></tr>
+                        }
+                        @foreach (var c in Model.TopCourses)
+                        {
+                            <tr>
+                                <td>@c.CourseName</td>
+                                <td><span class="badge bg-primary rounded-pill">@c.StudentCount</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

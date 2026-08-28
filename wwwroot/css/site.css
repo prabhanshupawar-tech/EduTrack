@@ -1,0 +1,65 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #f4f6f9;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-card {
+    border-radius: 12px;
+    transition: transform 0.15s ease-in-out;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.table thead th {
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.footer {
+    background-color: #ffffff;
+    font-size: 0.85rem;
+}
+
+.navbar-brand {
+    letter-spacing: 0.02em;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+}
+
+.badge {
+    font-weight: 500;
+}
+
+/* Loading spinner shown during async form submissions */
+.spinner-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.spinner-overlay.active {
+    display: flex;
+}
